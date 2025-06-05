@@ -18,7 +18,7 @@ public class Person {
     private String lastName;
     private String address;
     private String birthdate; // DD-MM-YYYY
-    private HashMap<String, Integer> demeritPoints = new HashMap<>();
+    private final HashMap<String, Integer> demeritPoints = new HashMap<>();
     private boolean isSuspended;
 
     public Person(String personID, String firstName, String lastName, String address, String birthdate) {
