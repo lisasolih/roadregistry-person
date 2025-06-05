@@ -1,0 +1,9 @@
+# macOS system files
+.DS_Store
+
+# Build folders
+/target/
+/out/
+/persons.txt
+
+
