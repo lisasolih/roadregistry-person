@@ -85,8 +85,10 @@ public class Person {
 
         int age = getAge(birthdate);
         int totalPoints = calculatePointsLast2Years(offenseDate);
-        if ((age < 21 && totalPoints > 6) || (age >= 21 && totalPoints > 12)) isSuspended = true;
-
+        if ((age < 21 && totalPoints >= 6) || (age >= 21 && totalPoints >= 12)) {
+            isSuspended = true;
+        }
+        
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("demerits.txt", true))) {
             writer.write(personID + "|" + offenseDate + "|" + points + "\n");
             return "Success";
