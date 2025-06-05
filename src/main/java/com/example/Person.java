@@ -30,8 +30,8 @@ public class Person {
         this.isSuspended = false;
     }
 
-    // --- 1. addPerson() ---
-    public boolean addPerson() {
+    // --- 1. addPerson() --- //addperson function
+    public boolean addPerson() { 
         if (!validatePersonID(personID)) {
             System.out.println("Invalid ID: " + personID);
             return false;
