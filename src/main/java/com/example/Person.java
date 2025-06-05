@@ -33,7 +33,7 @@ public class Person {
     // --- 1. addPerson() --- //addperson function
     public boolean addPerson() { 
         if (!validatePersonID(personID)) {
-            System.out.println("Invalid ID: " + personID);
+            System.out.println("Invalid ID: " + personID); //validating
             return false;
         }
         if (!validateAddress(address)) {
