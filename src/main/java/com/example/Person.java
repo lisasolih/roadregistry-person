@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,7 +74,7 @@ public class Person {
             this.address = newAddress;
             this.birthdate = newBirth;
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             return false;
         }
     }
@@ -145,7 +146,7 @@ public class Person {
             int age = today.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
             if (today.get(Calendar.DAY_OF_YEAR) < birthCal.get(Calendar.DAY_OF_YEAR)) age--;
             return age;
-        } catch (Exception e) {
+        } catch (ParseException e) {
             return 0;
         }
     }
@@ -168,7 +169,7 @@ public class Person {
                 if (d.after(start) && d.before(cutoff) || d.equals(cutoff)) total += entry.getValue();
             }
             return total;
-        } catch (Exception e) {
+        } catch (ParseException e) {
             return 0;
         }
     }
