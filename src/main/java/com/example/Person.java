@@ -192,6 +192,11 @@ public class Person {
         tempFile.renameTo(inputFile);
     }
 
+    // ✅ Public getter so test can access isSuspended
+    public boolean isSuspended() {
+        return isSuspended;
+    }
+
     // --- Main Method for Quick Testing ---
     public static void main(String[] args) {
         Person p = new Person("56s_d%&fAB", "Lisa", "Solih", "12|King St|Melbourne|Victoria|Australia", "15-09-2002");
