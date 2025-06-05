@@ -6,19 +6,10 @@ import java.nio.file.Files;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PersonTest {
 
-    @BeforeEach
-    void cleanupFiles() {
-        // Before each test, delete test files if they exist
-        File personsFile = new File("persons.txt");
-        if (personsFile.exists()) personsFile.delete();
-        File demeritsFile = new File("demerits.txt");
-        if (demeritsFile.exists()) demeritsFile.delete();
-    }
 
     // --- Tests for addPerson() ---
 

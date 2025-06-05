@@ -177,19 +177,19 @@ public class Person {
     private void updateFile(String oldID, String newID, String newFirst, String newLast, String newAddress, String newBirth) throws IOException {
         File inputFile = new File("persons.txt");
         File tempFile = new File("temp.txt");
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("\\|");
-            if (parts[0].equals(oldID)) {
-                writer.write(newID + "|" + newFirst + "|" + newLast + "|" + newAddress + "|" + newBirth + "\n");
-            } else {
-                writer.write(line + "\n");
+        BufferedWriter writer;
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            writer = new BufferedWriter(new FileWriter(tempFile));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                if (parts[0].equals(oldID)) {
+                    writer.write(newID + "|" + newFirst + "|" + newLast + "|" + newAddress + "|" + newBirth + "\n");
+                } else {
+                    writer.write(line + "\n");
+                }
             }
         }
-        reader.close();
         writer.close();
         inputFile.delete();
         tempFile.renameTo(inputFile);
