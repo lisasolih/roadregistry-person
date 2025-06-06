@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class Person {
     private String lastName;
     private String address;
     private String birthdate; // DD-MM-YYYY
-    private HashMap<String, Integer> demeritPoints = new HashMap<>();
+    private final HashMap<String, Integer> demeritPoints = new HashMap<>();
     private boolean isSuspended;
 
     public Person(String personID, String firstName, String lastName, String address, String birthdate) {
@@ -73,7 +74,7 @@ public class Person {
             this.address = newAddress;
             this.birthdate = newBirth;
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             return false;
         }
     }
@@ -145,7 +146,7 @@ public class Person {
             int age = today.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
             if (today.get(Calendar.DAY_OF_YEAR) < birthCal.get(Calendar.DAY_OF_YEAR)) age--;
             return age;
-        } catch (Exception e) {
+        } catch (ParseException e) {
             return 0;
         }
     }
@@ -168,7 +169,7 @@ public class Person {
                 if (d.after(start) && d.before(cutoff) || d.equals(cutoff)) total += entry.getValue();
             }
             return total;
-        } catch (Exception e) {
+        } catch (ParseException e) {
             return 0;
         }
     }
@@ -176,19 +177,19 @@ public class Person {
     private void updateFile(String oldID, String newID, String newFirst, String newLast, String newAddress, String newBirth) throws IOException {
         File inputFile = new File("persons.txt");
         File tempFile = new File("temp.txt");
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("\\|");
-            if (parts[0].equals(oldID)) {
-                writer.write(newID + "|" + newFirst + "|" + newLast + "|" + newAddress + "|" + newBirth + "\n");
-            } else {
-                writer.write(line + "\n");
+        BufferedWriter writer;
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            writer = new BufferedWriter(new FileWriter(tempFile));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                if (parts[0].equals(oldID)) {
+                    writer.write(newID + "|" + newFirst + "|" + newLast + "|" + newAddress + "|" + newBirth + "\n");
+                } else {
+                    writer.write(line + "\n");
+                }
             }
         }
-        reader.close();
         writer.close();
         inputFile.delete();
         tempFile.renameTo(inputFile);
